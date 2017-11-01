@@ -61,6 +61,10 @@ class CompletedOrderTableTableViewController: UITableViewController, GiradaListD
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "toShowOrder", sender: giradaList.get(completedOrder: indexPath.row))
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         giradaList.delegate = self
     }
@@ -101,14 +105,18 @@ class CompletedOrderTableTableViewController: UITableViewController, GiradaListD
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "toShowOrder" {
+            let vc = segue.destination as! OrderDetailViewController
+            vc.order = sender as? GiradaOrder
+        }
     }
-    */
+    
 
 }

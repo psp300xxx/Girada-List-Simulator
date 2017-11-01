@@ -15,18 +15,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func giradaList(orderAdded: GiradaOrder) {
-        if orderCount % deleteOrderFrequency == 0 {
-            giradaList.removeFirst()
-        }
-        orderCount += 1
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
+    func order(friendsGained: GiradaOrder) {
+        
+    }
+    
     
     
     func orderCompleted(order: GiradaOrder) {
+        self.giradaList.removeFirst()
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -35,18 +36,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var isHere = false
     @IBOutlet var tableView : UITableView!
     let giradaList : GiradaList = GiradaList()
+    var rowSelected = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        GiradaOrder.delegate = self
         giradaList.listFiller.start()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         giradaList.delegate = self
+        GiradaOrder.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,6 +61,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return giradaList.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        rowSelected = indexPath.row
+        performSegue(withIdentifier: "toShowOrder", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,6 +98,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "toCompleted" {
             let vc = segue.destination as! CompletedOrderTableTableViewController
             vc.giradaList = self.giradaList
+        }
+        else if segue.identifier == "toShowOrder" {
+            let vc = segue.destination as! OrderDetailViewController
+            vc.order = giradaList.get(indexOrder: rowSelected)
         }
     }
 

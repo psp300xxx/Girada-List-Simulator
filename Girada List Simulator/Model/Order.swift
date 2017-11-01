@@ -12,6 +12,8 @@ public protocol GiradaOrderDelegate {
     
     func orderCompleted(order : GiradaOrder)
     
+    func order(friendsGained : GiradaOrder)
+    
 }
 
 public class GiradaOrder : NSObject {
@@ -25,6 +27,12 @@ public class GiradaOrder : NSObject {
     let index : Int
     
     private var friendOrders : [GiradaOrder] = []
+    
+    public var friends : [GiradaOrder] {
+        get {
+            return friendOrders
+        }
+    }
     
     public var isCompleted : Bool {
         get {
@@ -67,6 +75,11 @@ public class GiradaOrder : NSObject {
             dateCompletion = Date()
             if let delegate = GiradaOrder.delegate {
                 delegate.orderCompleted(order: self)
+            }
+        }
+        else {
+            if let delegate = GiradaOrder.delegate {
+                delegate.order(friendsGained: self)
             }
         }
     }

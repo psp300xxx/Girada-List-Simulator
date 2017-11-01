@@ -12,6 +12,7 @@ public protocol GiradaListDelegate {
     
     func giradaList(orderAdded : GiradaOrder)
     
+    
 }
 
 public class GiradaList {
@@ -60,6 +61,10 @@ public class GiradaList {
     public  var listFiller : GiradaListFiller {
         get {
             if let thread = listFillerPvt {
+                if !thread.isActive {
+                    listFillerPvt = GiradaListFiller(list : self)
+                    return listFillerPvt!
+                }
                 return thread
             }
             listFillerPvt = GiradaListFiller(list: self)
