@@ -94,6 +94,10 @@ public class GiradaListFiller : Thread {
         giradaList = list
     }
     
+    public func stopThread() {
+        isActive = false
+    }
+    
     public override func main() {
         while isActive {
             Thread.sleep(forTimeInterval: TIME_BEETWEEN_ORDERS)
