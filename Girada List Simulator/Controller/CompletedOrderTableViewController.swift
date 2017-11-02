@@ -1,5 +1,5 @@
 //
-//  CompletedOrderTableTableViewController.swift
+//  CompletedOrderTableViewController.swift
 //  Girada List Simulator
 //
 //  Created by Luigi De Marco on 01/11/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CompletedOrderTableTableViewController: UITableViewController, GiradaListDelegate {
+class CompletedOrderTableViewController: UITableViewController, GiradaListDelegate {
     
     var giradaList : GiradaList!
 
@@ -57,7 +57,6 @@ class CompletedOrderTableTableViewController: UITableViewController, GiradaListD
         cell.fractionLabel.text = "3/3"
         cell.timeCompletedLabel.text = "\(Int(order.timeCompleted!))"
         // Configure the cell...
-
         return cell
     }
     

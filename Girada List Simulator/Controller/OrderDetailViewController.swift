@@ -80,7 +80,9 @@ class OrderDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     func orderCompleted(order: GiradaOrder) {
         if order == self.order {
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
             if let time = order.timeCompleted {
                 DispatchQueue.main.async {
                     self.timeCompleteLabel.text = "\(Int(time))"

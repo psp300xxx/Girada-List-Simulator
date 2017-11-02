@@ -64,8 +64,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        rowSelected = indexPath.row
-        performSegue(withIdentifier: "toShowOrder", sender: nil)
+        performSegue(withIdentifier: "toShowOrder", sender: giradaList.get(indexOrder: indexPath.row))
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,12 +95,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCompleted" {
-            let vc = segue.destination as! CompletedOrderTableTableViewController
+            let vc = segue.destination as! CompletedOrderTableViewController
             vc.giradaList = self.giradaList
         }
         else if segue.identifier == "toShowOrder" {
             let vc = segue.destination as! OrderDetailViewController
-            vc.order = giradaList.get(indexOrder: rowSelected)
+            vc.order = sender as? GiradaOrder
+            
         }
     }
 
