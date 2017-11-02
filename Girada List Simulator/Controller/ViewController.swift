@@ -49,6 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         giradaList.delegate = self
         GiradaOrder.delegate = self
+        AppDelegate.startingVC = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,7 +72,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "giradaCell") as! GiradaListTableViewCell
         if let order = giradaList.get(indexOrder: indexPath.row){
             cell.nameLabel.text = "\(order)"
-            cell.fractionLabel.text = "\(order.friendsGained())/3"
+            cell.fractionLabel.text = "\(order.friendsGained())/\(GiradaOrder.ORDER_TO_COMPLETE)"
             if giradaList.orderHasToken(order: order) {
                 cell.backgroundColor = UIColor.red
             }

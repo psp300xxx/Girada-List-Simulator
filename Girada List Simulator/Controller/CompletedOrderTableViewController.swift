@@ -54,7 +54,7 @@ class CompletedOrderTableViewController: UITableViewController, GiradaListDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "giradaCell", for: indexPath) as! GiradaListTableViewCell
         let order = giradaList.get(completedOrder: indexPath.row)
         cell.nameLabel.text = order.description
-        cell.fractionLabel.text = "3/3"
+        cell.fractionLabel.text = "\(order.friendsGained())/\(GiradaOrder.ORDER_TO_COMPLETE)"
         cell.timeCompletedLabel.text = "\(Int(order.timeCompleted!))"
         // Configure the cell...
         return cell

@@ -20,7 +20,29 @@ public class GiradaOrder : NSObject {
     
     public static var delegate : GiradaOrderDelegate!
     
-    public static let ORDER_TO_COMPLETE = 3
+    private static var ORDER_TO_COMPLETE_PVT = 3
+    
+    private static var observers : [GiradaList] = []
+    
+    public static var ORDER_TO_COMPLETE : Int {
+        get {
+            return ORDER_TO_COMPLETE_PVT
+        }
+        set {
+            ORDER_TO_COMPLETE_PVT = newValue
+            notify(ORDER_TO_COMPLETE_PVT)
+        }
+    }
+    
+    private static func notify(_ value : Int){
+        for i in observers {
+            i.update()
+        }
+    }
+    
+    public static func addObserver(newList : GiradaList){
+        observers.append(newList)
+    }
     
     private static var NEXT_ORDER_INDEX = 0
     

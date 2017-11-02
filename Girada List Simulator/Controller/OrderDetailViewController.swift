@@ -29,7 +29,7 @@ class OrderDetailViewController: UIViewController, UITableViewDataSource, UITabl
         DispatchQueue.main.async {
             if let order = self.order {
                 self.nameLabel.text = order.description
-                self.fractionCompletedLabel.text = "\(order.friendsGained())/3"
+                self.fractionCompletedLabel.text = "\(order.friendsGained())/\(GiradaOrder.ORDER_TO_COMPLETE)"
                 if let timeToComplete = order.timeCompleted {
                     self.timeCompleteLabel.text = "\(Int(timeToComplete))"
                 }
@@ -86,7 +86,7 @@ class OrderDetailViewController: UIViewController, UITableViewDataSource, UITabl
             if let time = order.timeCompleted {
                 DispatchQueue.main.async {
                     self.timeCompleteLabel.text = "\(Int(time))"
-                    self.fractionCompletedLabel.text = "3/3"
+                    self.fractionCompletedLabel.text = "\(order.friendsGained())/\(GiradaOrder.ORDER_TO_COMPLETE)"
                 }
             }
         }

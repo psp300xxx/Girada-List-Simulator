@@ -24,6 +24,10 @@ public class GiradaList {
     private var orders : [GiradaOrder] = []
     private var completedOrders : [GiradaOrder] =  []
     
+    public init() {
+        GiradaOrder.addObserver(newList: self)
+    }
+    
     public func add(newOrder : GiradaOrder){
         if let order = self.get(indexOrder: token) {
             order.add(friendOrder: newOrder)
@@ -44,6 +48,12 @@ public class GiradaList {
     
     public func orderHasToken(order : GiradaOrder) -> Bool {
         return orders[token] == order
+    }
+    
+    
+    public func update(){
+        orders = []
+        completedOrders = []
     }
     
      public func get(indexOrder : Int) -> GiradaOrder? {
